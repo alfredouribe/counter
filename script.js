@@ -6,19 +6,21 @@ const els = {
   minutes: document.getElementById("minutes"),
   seconds: document.getElementById("seconds"),
   countdown: document.querySelector(".countdown"),
-  complete: document.querySelector(".hero-complete"),
+  celebration: document.querySelector(".celebration"),
 };
 
 function pad(n) {
   return String(n).padStart(2, "0");
 }
 
+let timer;
+
 function tick() {
   const diff = TARGET.getTime() - Date.now();
 
   if (diff <= 0) {
     els.countdown.style.display = "none";
-    els.complete.style.display = "block";
+    els.celebration.style.display = "flex";
     clearInterval(timer);
     return;
   }
@@ -35,4 +37,4 @@ function tick() {
 }
 
 tick();
-const timer = setInterval(tick, 1000);
+timer = setInterval(tick, 1000);
