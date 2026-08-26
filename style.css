@@ -130,6 +130,31 @@ main {
   margin-top: 10px;
 }
 
+.preview-toggle {
+  margin: var(--space-xxl) auto 0;
+  padding: 10px 20px;
+  background: transparent;
+  border: 1px solid rgba(201, 167, 104, 0.4);
+  border-radius: var(--rounded-lg);
+  color: var(--gold);
+  font-family: var(--font-text);
+  font-size: 12px;
+  font-weight: 400;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  cursor: pointer;
+  transition: background 0.2s ease, color 0.2s ease;
+}
+
+.preview-toggle:not([hidden]) {
+  display: block;
+}
+
+.preview-toggle:hover {
+  background: rgba(201, 167, 104, 0.15);
+  color: var(--gold-bright);
+}
+
 .celebration {
   display: none;
   flex-direction: column;

@@ -50,6 +50,7 @@ const els = {
   celebration: document.querySelector(".celebration"),
   lyrics: document.getElementById("lyrics"),
   audio: document.querySelector(".celebration-audio"),
+  previewToggle: document.getElementById("previewToggle"),
 };
 
 function setupLyrics() {
@@ -112,14 +113,19 @@ function pad(n) {
 
 let timer;
 
+function reveal() {
+  els.countdown.style.display = "none";
+  els.previewToggle.hidden = true;
+  els.celebration.style.display = "flex";
+  setupLyrics();
+  clearInterval(timer);
+}
+
 function tick() {
   const diff = TARGET.getTime() - Date.now();
 
   if (diff <= 0) {
-    els.countdown.style.display = "none";
-    els.celebration.style.display = "flex";
-    setupLyrics();
-    clearInterval(timer);
+    reveal();
     return;
   }
 
@@ -132,6 +138,11 @@ function tick() {
   els.hours.textContent = pad(hours);
   els.minutes.textContent = pad(minutes);
   els.seconds.textContent = pad(seconds);
+}
+
+if (new URLSearchParams(window.location.search).has("preview")) {
+  els.previewToggle.hidden = false;
+  els.previewToggle.addEventListener("click", reveal);
 }
 
 tick();
