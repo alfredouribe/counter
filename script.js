@@ -80,6 +80,28 @@ function setupLyrics() {
   });
 
   let activeLine = null;
+  let photoRevealed = false;
+  const PHOTO_REVEAL_TIME = 176; // 2:56
+
+  function revealPhoto() {
+    photoRevealed = true;
+    els.lyrics.classList.add("is-hidden");
+    setTimeout(() => {
+      els.lyrics.hidden = true;
+      els.proposal.hidden = false;
+      requestAnimationFrame(() => els.proposal.classList.add("is-visible"));
+    }, 600);
+  }
+
+  function hidePhoto() {
+    photoRevealed = false;
+    els.proposal.classList.remove("is-visible");
+    els.lyrics.hidden = false;
+    requestAnimationFrame(() => els.lyrics.classList.remove("is-hidden"));
+    setTimeout(() => {
+      els.proposal.hidden = true;
+    }, 600);
+  }
 
   function highlight() {
     const t = els.audio.currentTime;
@@ -100,14 +122,15 @@ function setupLyrics() {
       }
       activeLine = current;
     }
+
+    if (t >= PHOTO_REVEAL_TIME && !photoRevealed) {
+      revealPhoto();
+    } else if (t < PHOTO_REVEAL_TIME && photoRevealed) {
+      hidePhoto();
+    }
   }
 
   els.audio.addEventListener("timeupdate", highlight);
-  els.audio.addEventListener("ended", () => {
-    els.proposal.hidden = false;
-    requestAnimationFrame(() => els.proposal.classList.add("is-visible"));
-    els.proposal.scrollIntoView({ block: "center", behavior: "smooth" });
-  });
 }
 
 function pad(n) {

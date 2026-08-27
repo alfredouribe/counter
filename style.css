@@ -217,6 +217,13 @@ main {
   padding: var(--space-lg) 8px;
   -webkit-overflow-scrolling: touch;
   mask-image: linear-gradient(to bottom, transparent, #000 12%, #000 88%, transparent);
+  opacity: 1;
+  transition: opacity 0.6s ease;
+}
+
+.lyrics.is-hidden {
+  opacity: 0;
+  pointer-events: none;
 }
 
 .lyrics-stanza {
